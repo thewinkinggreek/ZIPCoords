@@ -9,7 +9,7 @@ export default function Header() {
                 <div className={styles.titleContainer}>
                     <a href="https://zangus.co">
                         <span>ZIPCoords</span>
-                        <span color="red" font-weight="bold">2</span>
+                        <span style={{ color: "red", fontWeight: "bold" }}>2</span>
                     </a>
                 </div>
                 <div className={styles.pagesContainer}>
