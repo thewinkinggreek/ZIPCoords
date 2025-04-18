@@ -8,7 +8,8 @@ export default function Header() {
             <div className={styles.headerItemsContainer}>
                 <div className={styles.titleContainer}>
                     <a href="https://zangus.co">
-                        ZIPCoords
+                        <span>ZIPCoords</span>
+                        <span color="red" font-weight="bold">2</span>
                     </a>
                 </div>
                 <div className={styles.pagesContainer}>
