@@ -8,6 +8,12 @@ import haversine from "./haversine";
 import { NextRequest, NextResponse } from "next/server";
 
 
+type WKB = {
+    "ST_Y(location)": number;
+    "ST_X(location)": number;
+};
+
+
 async function getCoords(
     input: ZIPInput
 ): Promise<{ lat: number, lon: number} | null>
@@ -18,13 +24,15 @@ async function getCoords(
         .eq("zip", input.value)
         .single();
     console.log("Data:\n", data)
-    if (error || !data || data["ST_Y"] === null || data["ST_X"] === null) {
+    if (error || !data) {
         return null;
     }
-    const lat = (data as any)["ST_Y(location)"];
-    const lon = (data as any)["ST_X(location"];
-    console.log("Lat and lon:\n", lat, lon)
-    return { lat, lon };
+    const wkbData = data as unknown as WKB;
+    if (!Number.isFinite(wkbData["ST_Y(location)"])
+        || !Number.isFinite(wkbData["ST_X(location)"])) {
+        return null;
+    }
+    return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
 }
 
 
