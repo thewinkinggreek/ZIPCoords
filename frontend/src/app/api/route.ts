@@ -34,7 +34,7 @@ async function getCoords(
     // console.log("lat:\n", wkbData["ST_Y(location)"]);
     // console.log("lon:\n", wkbData["ST_X(location)"]);
     // return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
-    const [lon, lat] = data[0];
+    const { lat, lon } = data[0];
     console.log("lat:\n", lat)
     console.log("lon:\n", lon)
     return { lat, lon };
