@@ -24,10 +24,14 @@ async function getCoords(
 async function getZIP(input: CoordsInput): Promise<{zip_code: number} | null>
 {
     const { lat, lon } = input.value;
+    console.log("lat:", lat);
+    console.log("lon:", lon)
     const { data, error } = await db.rpc("get_zip", { lat, lon });
     if (error || !data || data.length == 0) {
+        console.log("bad data");
         return null;
     }
+    console.log("data:\n", data)
     return { zip_code: data[0].zip }
     // let nearestZIP: number | null = null;
     // let minDistance = Infinity;
