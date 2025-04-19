@@ -19,16 +19,9 @@ async function getCoords(
 ): Promise<{ lat: number, lon: number} | null>
 {
     const { data, error } = await db
-        .from("zip_coords")
-        .select("location")
-        .eq("zip", input.value)
-        .single();
+        .rpc("get_coords", { input: input.value });
     console.log("query data:\n", data)
-    if (error || !data) {
-        return null;
-    }
-    if (!data.location || !Array.isArray(data.location.coordinates)) {
-        console.log("data looks bad");
+    if (error || !data || data.length === 0) {
         return null;
     }
     // const wkbData = data as unknown as WKB;
@@ -41,7 +34,7 @@ async function getCoords(
     // console.log("lat:\n", wkbData["ST_Y(location)"]);
     // console.log("lon:\n", wkbData["ST_X(location)"]);
     // return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
-    const [lon, lat] = data.location.coordinates;
+    const [lon, lat] = data[0];
     console.log("lat:\n", lat)
     console.log("lon:\n", lon)
     return { lat, lon };
