@@ -28,10 +28,14 @@ async function getCoords(
         return null;
     }
     const wkbData = data as unknown as WKB;
+    console.log("wkb data:\n", wkbData)
     if (!Number.isFinite(wkbData["ST_Y(location)"])
         || !Number.isFinite(wkbData["ST_X(location)"])) {
+        console.log("returning null because nonfinite number(s) on wkbData");
         return null;
     }
+    console.log("lat:\n", wkbData["ST_Y(location)"]);
+    console.log("lon:\n", wkbData["ST_X(location)"]);
     return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
 }
 
