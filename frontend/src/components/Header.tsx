@@ -10,7 +10,7 @@ export default function Header()
                 ZIPCoords
             </Link>
             <div className={styles.productsContainer}>
-                <Link href="/api">
+                <Link href="/api-guide">
                     API
                 </Link>
             </div>

@@ -7,7 +7,8 @@ export default function Output(
         result: { zip?: number; lat?: number; lon?: number } | null;
         error: string | null;
     }
-) {
+)
+{
     if (error) {
         return <p className="error">{error}</p>;
     }
