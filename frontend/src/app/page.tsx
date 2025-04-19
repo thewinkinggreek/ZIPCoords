@@ -1,4 +1,6 @@
+import Input from "@/components/Input";
 import "../styles/index.css";
+import Output from "@/components/Output";
 
 
 export default function Home()
@@ -8,6 +10,8 @@ export default function Home()
             <h1>
                 ZIPCoords
             </h1>
+            <Input />
+            <Output />
         </div>
     );
 }
