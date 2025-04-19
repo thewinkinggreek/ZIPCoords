@@ -20,7 +20,7 @@ async function getCoords(
 {
     const { data, error } = await db
         .from("zip_coords")
-        .select("ST_Y(location), ST_X(location)")
+        .select("location")
         .eq("zip", input.value)
         .single();
     console.log("Data:\n", data)
