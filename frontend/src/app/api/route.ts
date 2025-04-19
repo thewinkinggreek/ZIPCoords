@@ -4,7 +4,6 @@
 import parseInput from "./parseInput";
 import { CoordsInput, InputType, ZIPInput } from "./types";
 import { db } from "./db";
-// import haversine from "./haversine";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -21,29 +20,16 @@ async function getCoords(
 }
 
 
-async function getZIP(input: CoordsInput): Promise<{zip_code: number} | null>
+async function getZIP(
+    input: CoordsInput
+): Promise<{zip_code: number} | null>
 {
     const { lat, lon } = input.value;
-    console.log("lat:", lat);
-    console.log("lon:", lon)
     const { data, error } = await db.rpc("get_zip", { lat, lon });
     if (error || !data || data.length == 0) {
-        console.log("bad data");
         return null;
     }
-    console.log("data:\n", data)
     return { zip_code: data[0].zip }
-    // let nearestZIP: number | null = null;
-    // let minDistance = Infinity;
-    // for (const row of data) {
-    //     const [rowLon, rowLat] = row.location.coordinates;
-    //     const distance = haversine(lat, lon, rowLat, rowLon);
-    //     if (distance < minDistance) {
-    //         minDistance = distance;
-    //         nearestZIP = row.zip;
-    //     }
-    // }
-    // return nearestZIP ? {zip: nearestZIP} : null;
 }
 
 
@@ -62,12 +48,10 @@ export async function GET(req: NextRequest)
             : NextResponse.json({ error: "ZIP Code not found" }, { status: 404 });
     }
     if (input.type === InputType.coords) {
-        console.log("input recognized as coords:\n", input.value);
         const result = await getZIP(input);
         return result
             ? NextResponse.json(result)
             : NextResponse.json({ error: "No nearby ZIP found" }, { status: 404 });
     }
-    console.log("input recognized to neither zip code nor coords regex:\n", input.value)
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
 }
