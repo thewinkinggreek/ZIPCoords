@@ -1,7 +1,11 @@
+"use server";
+
+
 import parseInput from "./parseInput";
 import { CoordsInput, InputType, ZIPInput } from "./types";
 import { db } from "./db";
 import haversine from "./haversine";
+import { NextRequest, NextResponse } from "next/server";
 
 
 async function getCoords(
@@ -44,16 +48,25 @@ async function getZIP(input: CoordsInput): Promise<{zip: number} | null>
 }
 
 
-export default async function api(
-    rawInput: string
-): Promise<{ zip?: number; lat?: number; lon?: number } | null>
+export async function GET(req: NextRequest)
 {
-    const input = parseInput(rawInput);
+    const { searchParams } = new URL(req.url);
+    const query = searchParams.get("q");
+    if (!query) {
+        return NextResponse.json({ error: "Missing query" }, { status: 400 });
+    }
+    const input = parseInput(query);
     if (input.type === InputType.zip) {
-        return await getCoords(input);
+        const result = await getCoords(input);
+        return result
+            ? NextResponse.json(result)
+            : NextResponse.json({ error: "ZIP Code not found" }, { status: 404 });
     }
     if (input.type === InputType.coords) {
-        return await getZIP(input);
+        const result = await getZIP(input);
+        return result
+            ? NextResponse.json(result)
+            : NextResponse.json({ error: "No nearby ZIP found" }, { status: 404 });
     }
-    return null;
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
 }

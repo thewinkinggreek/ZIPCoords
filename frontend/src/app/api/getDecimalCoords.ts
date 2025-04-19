@@ -22,9 +22,9 @@ function convertDegreesToDecimal(
 function convertPrefixedToDecimal(input: string): { lat: number, lon: number }
 {
     const parts = input.split(/\s+/);
-    let latDirection = parts[0][0].toUpperCase();
+    const latDirection = parts[0][0].toUpperCase();
+    const lonDirection = parts[1][0].toUpperCase();
     let lat = parseFloat(parts[0].slice(1));
-    let lonDirection = parts[1][0].toUpperCase();
     let lon = parseFloat(parts[1].slice(1));
     if (latDirection === 'S') {
         lat *= -1;
