@@ -14,14 +14,15 @@ async function getCoords(
 {
     const { data, error } = await db
         .from("zip_coords")
-        .select("location")
+        .select("ST_Y(location), ST_X(location)")
         .eq("zip", input.value)
         .single();
     console.log("Data:\n", data)
-    if (error || !data || !data.location || !Array.isArray(data.location.coordinates)) {
+    if (error || !data || data["ST_Y"] === null || data["ST_X"] === null) {
         return null;
     }
-    const [lon, lat] = data.location.coordinates;
+    const lat = (data as any)["ST_Y(location)"];
+    const lon = (data as any)["ST_X(location"];
     console.log("Lat and lon:\n", lat, lon)
     return { lat, lon };
 }
