@@ -1,5 +1,5 @@
 import getDecimalCoords from "./getDecimalCoords";
-import { InputType, ParsedInput } from "./types";
+import { InputType, ParsedInput } from "../app/api/types";
 
 
 export default function parseInput(input: string): ParsedInput

@@ -1,9 +1,9 @@
 "use server";
 
 
-import parseInput from "./parseInput";
+import parseInput from "@/lib/parseInput";
 import { CoordsInput, InputType, ZIPInput } from "./types";
-import { db } from "./db";
+import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 
