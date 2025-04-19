@@ -4,63 +4,42 @@
 import parseInput from "./parseInput";
 import { CoordsInput, InputType, ZIPInput } from "./types";
 import { db } from "./db";
-import haversine from "./haversine";
+// import haversine from "./haversine";
 import { NextRequest, NextResponse } from "next/server";
-
-
-// type WKB = {
-//     "ST_Y(location)": number;
-//     "ST_X(location)": number;
-// };
 
 
 async function getCoords(
     input: ZIPInput
 ): Promise<{ lat: number, lon: number} | null>
 {
-    const { data, error } = await db
-        .rpc("get_coords", { input: input.value });
-    console.log("query data:\n", data)
+    const { data, error } = await db.rpc("get_coords", { input: input.value });
     if (error || !data || data.length === 0) {
         return null;
     }
-    // const wkbData = data as unknown as WKB;
-    // console.log("wkb data:\n", wkbData)
-    // if (!Number.isFinite(wkbData["ST_Y(location)"])
-    //     || !Number.isFinite(wkbData["ST_X(location)"])) {
-    //     console.log("returning null because nonfinite number(s) on wkbData");
-    //     return null;
-    // }
-    // console.log("lat:\n", wkbData["ST_Y(location)"]);
-    // console.log("lon:\n", wkbData["ST_X(location)"]);
-    // return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
     const { lat, lon } = data[0];
-    console.log("lat:\n", lat)
-    console.log("lon:\n", lon)
     return { lat, lon };
 }
 
 
-async function getZIP(input: CoordsInput): Promise<{zip: number} | null>
+async function getZIP(input: CoordsInput): Promise<{zip_code: number} | null>
 {
     const { lat, lon } = input.value;
-    const { data, error } = await db
-        .from("zip_coords")
-        .select("zip, location")
-    if (error || !data) {
+    const { data, error } = await db.rpc("get_zip", { lat, lon });
+    if (error || !data || data.length == 0) {
         return null;
     }
-    let nearestZIP: number | null = null;
-    let minDistance = Infinity;
-    for (const row of data) {
-        const [rowLon, rowLat] = row.location.coordinates;
-        const distance = haversine(lat, lon, rowLat, rowLon);
-        if (distance < minDistance) {
-            minDistance = distance;
-            nearestZIP = row.zip;
-        }
-    }
-    return nearestZIP ? {zip: nearestZIP} : null;
+    return { zip_code: data[0].zip }
+    // let nearestZIP: number | null = null;
+    // let minDistance = Infinity;
+    // for (const row of data) {
+    //     const [rowLon, rowLat] = row.location.coordinates;
+    //     const distance = haversine(lat, lon, rowLat, rowLon);
+    //     if (distance < minDistance) {
+    //         minDistance = distance;
+    //         nearestZIP = row.zip;
+    //     }
+    // }
+    // return nearestZIP ? {zip: nearestZIP} : null;
 }
 
 
@@ -73,9 +52,7 @@ export async function GET(req: NextRequest)
     }
     const input = parseInput(query);
     if (input.type === InputType.zip) {
-        console.log("Input:\n", input)
         const result = await getCoords(input);
-        console.log("Result:\n", result)
         return result
             ? NextResponse.json(result)
             : NextResponse.json({ error: "ZIP Code not found" }, { status: 404 });
