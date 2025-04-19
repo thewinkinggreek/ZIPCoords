@@ -8,10 +8,10 @@ import haversine from "./haversine";
 import { NextRequest, NextResponse } from "next/server";
 
 
-type WKB = {
-    "ST_Y(location)": number;
-    "ST_X(location)": number;
-};
+// type WKB = {
+//     "ST_Y(location)": number;
+//     "ST_X(location)": number;
+// };
 
 
 async function getCoords(
@@ -23,20 +23,28 @@ async function getCoords(
         .select("location")
         .eq("zip", input.value)
         .single();
-    console.log("Data:\n", data)
+    console.log("query data:\n", data)
     if (error || !data) {
         return null;
     }
-    const wkbData = data as unknown as WKB;
-    console.log("wkb data:\n", wkbData)
-    if (!Number.isFinite(wkbData["ST_Y(location)"])
-        || !Number.isFinite(wkbData["ST_X(location)"])) {
-        console.log("returning null because nonfinite number(s) on wkbData");
+    if (!data.location || !Array.isArray(data.location.coordinates)) {
+        console.log("data looks bad");
         return null;
     }
-    console.log("lat:\n", wkbData["ST_Y(location)"]);
-    console.log("lon:\n", wkbData["ST_X(location)"]);
-    return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
+    // const wkbData = data as unknown as WKB;
+    // console.log("wkb data:\n", wkbData)
+    // if (!Number.isFinite(wkbData["ST_Y(location)"])
+    //     || !Number.isFinite(wkbData["ST_X(location)"])) {
+    //     console.log("returning null because nonfinite number(s) on wkbData");
+    //     return null;
+    // }
+    // console.log("lat:\n", wkbData["ST_Y(location)"]);
+    // console.log("lon:\n", wkbData["ST_X(location)"]);
+    // return { lat: wkbData["ST_Y(location)"], lon: wkbData["ST_X(location)"] };
+    const [lon, lat] = data.location.coordinates;
+    console.log("lat:\n", lat)
+    console.log("lon:\n", lon)
+    return { lat, lon };
 }
 
 
