@@ -5,13 +5,13 @@ export enum InputType {
 }
 
 
-type ZIPInput = {
+export type ZIPInput = {
     type: InputType.zip,
     value: number
 }
 
 
-type CoordsInput = {
+export type CoordsInput = {
     type: InputType.coords,
     value: { lat: number, lon: number}
 }
