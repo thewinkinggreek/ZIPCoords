@@ -62,10 +62,12 @@ export async function GET(req: NextRequest)
             : NextResponse.json({ error: "ZIP Code not found" }, { status: 404 });
     }
     if (input.type === InputType.coords) {
+        console.log("input recognized as coords:\n", input.value);
         const result = await getZIP(input);
         return result
             ? NextResponse.json(result)
             : NextResponse.json({ error: "No nearby ZIP found" }, { status: 404 });
     }
+    console.log("input recognized to neither zip code nor coords regex:\n", input.value)
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
 }
