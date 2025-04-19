@@ -17,7 +17,7 @@ async function getCoords(
         .select("location")
         .eq("zip", input.value)
         .single();
-    if (error || !data) {
+    if (error || !data || !data.location || !Array.isArray(data.location.coordinates)) {
         return null;
     }
     const [lon, lat] = data.location.coordinates;
