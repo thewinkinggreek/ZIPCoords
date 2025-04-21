@@ -17,9 +17,6 @@ export default function Header()
                     <Link href="/api-guide">
                         API
                     </Link>
-                    <Link href="https://github.com/mikezangus/ZIPCoords">
-                        GitHub
-                    </Link>
                 </div>
             </div>
         </div>
