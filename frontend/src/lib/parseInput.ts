@@ -1,17 +1,17 @@
-import getDecimalCoords from "./getDecimalCoords";
-import { InputType, ParsedInput } from "../app/api/types";
+import parseCoords from "./parseCoords";
+import { InputType, ParsedInput } from "./types";
+import { isZIPCode } from "./regexes";
 
 
 export default function parseInput(input: string): ParsedInput
 {
-    const zipRegex = /^\d{5}$/;
-    if (zipRegex.test(input)) {
+    if (isZIPCode(input)) {
         return {
             type: InputType.zip,
             value: parseInt(input, 10)
         };
     }
-    const coords = getDecimalCoords(input);
+    const coords = parseCoords(input);
     if (coords) {
         return {
             type: InputType.coords,
