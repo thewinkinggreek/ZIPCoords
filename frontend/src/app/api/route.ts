@@ -2,7 +2,7 @@
 
 
 import parseInput from "@/lib/parseInput";
-import { CoordsInput, InputType, ZIPInput } from "./types";
+import { CoordsInput, InputType, ZIPInput } from "@/lib/types";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 

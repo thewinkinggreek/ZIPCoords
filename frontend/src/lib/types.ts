@@ -24,3 +24,10 @@ type UnknownInput = {
 
 
 export type ParsedInput = ZIPInput | CoordsInput | UnknownInput;
+
+
+export type Response = {
+    zip_code?: number;
+    lat?: number;
+    lon?: number;
+};
