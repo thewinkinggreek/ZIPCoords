@@ -1,29 +1,35 @@
 .headerContainer
 {
     width: 100%;
-    height: auto;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0a0a0a;
+}
+
+
+.navBarContainer
+{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 3rem;
-    padding: 2rem;
-    background-color: black;
+    justify-content: center;
+    gap: 5rem;
 }
 
 
 .titleContainer
 {
-    width: auto;
     font-size: large;
     font-weight: bold;
 }
 
 
-.productsContainer
+.linksContainer
 {
-    font-size: medium;
-    width: auto;
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 5rem;
+    font-size: medium;
 }

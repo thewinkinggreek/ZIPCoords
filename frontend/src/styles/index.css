@@ -1,6 +1,6 @@
 :root
 {
-    --c-darkgray: #0a0a0a;
+    --c-darkgray: #111111;
 }
 
 
@@ -15,8 +15,10 @@ body
 
 main
 {
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    margin: 2rem;
 }
 
 
@@ -42,6 +44,5 @@ a:visited
 
 h1
 {
-    width: 100%;
     text-align: center;
 }
