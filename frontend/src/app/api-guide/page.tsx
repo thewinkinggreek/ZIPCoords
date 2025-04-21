@@ -1,6 +1,6 @@
 export default function APIGuidePage()
 {
     return (
-        <div>API Guide</div>
+        <h1>API Guide</h1>
     );
 }

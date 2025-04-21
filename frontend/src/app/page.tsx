@@ -4,21 +4,23 @@
 import { useState } from "react";
 import Input from "@/components/Input";
 import Output from "@/components/Output";
-import "../styles/index.css";
+import { Response } from "@/lib/types";
+import styles from "@/styles/Fields.module.css";
+import "@/styles/index.css";
 
 
-export default function Home()
+export default function HomePage()
 {
-    const [result, setResult] = useState<{ zip?: number; lat?: number; lon?: number } | null>(null);
+    const [result, setResult] = useState<Response | null>(null);
     const [error, setError] = useState<string | null>(null);
     return (
-        <div className="main">
-            <h1>
-                <span>ZIPCoords</span>
-                <span style={{color: "orange"}}>2025</span>
-            </h1>
-            <Input setResult={setResult} setError={setError} />
-            <Output result={result} error={error} />
-        </div>
+        <main>
+            <h1>ZIPCoords</h1>
+            <div className={styles.fieldsContainer}>
+                <Input setResult={setResult} setError={setError} />
+                <Output result={result} error={error} />
+            </div>
+
+        </main>
     );
 }
