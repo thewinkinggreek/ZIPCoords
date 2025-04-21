@@ -1,6 +1,24 @@
 import styles from "@/styles/API.module.css";
 
 
+export const metadata = {
+    title: "ZIPCoords API Guide",
+    description: "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes.",
+    openGraph: {
+        title: "ZIPCoords API Guide",
+        description: "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes.",
+        url: "https://zipcoords.us/api-guide",
+        siteName: "ZIPCoords",
+        locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        title: "ZIPCoords API Guide",
+        description: "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes.",
+    },
+};
+
+
 export default function APIGuidePage()
 {
     return (
@@ -22,7 +40,7 @@ export default function APIGuidePage()
                 </div>
                 <div>
                     <span className={styles.bold}>JSON response:</span>
-                    <span className={styles.code}> {'{"lat":40.7536854,"lon":-73.9991637}'}</span> 
+                    <span className={styles.code}> {'{"lat":40.7536854,"lon":-73.9991637}'}</span>
                 </div>
             </div>
             <div className={styles.section}>
@@ -37,7 +55,7 @@ export default function APIGuidePage()
                 </div>
                 <div>
                     <span className={styles.bold}>JSON response:</span>
-                    <span className={styles.code}> {'{"zip_code":90210}'}</span> 
+                    <span className={styles.code}> {'{"zip_code":90210}'}</span>
                 </div>
             </div>
         </div>
