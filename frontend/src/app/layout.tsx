@@ -1,10 +1,11 @@
-import "../styles/index.css";
+import { Analytics } from "@vercel/analytics/react"
 import Header from "@/components/Header";
+import "@/styles/index.css";
 
 
 export const metadata = {
     title: "ZIPCoords",
-    description: ""
+    description: "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes."
 };
 
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode })
                 </header>
                 <main>
                     {children}
+                    <Analytics />
                 </main>
             </body>
         </html>
