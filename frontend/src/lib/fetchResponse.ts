@@ -6,10 +6,14 @@ export default async function fetchResponse(
 ): Promise<{ response: Response | null; error: string | null}>
 {
     try {
-        const res = await fetch(`/api?q=${encodeURIComponent(input.trim())}`);
+        input = input
+            .trim()
+            .replace(/\s*,\s*/g, ",")
+            .replace(/\s+/g, " ");
+        const res = await fetch(`/api?q=${encodeURIComponent(input)}`);
         const data = await res.json();
         if (!res.ok) {
-            return { response: null, error: data.error || "Unkown error" };
+            return { response: null, error: data.error || "Unknown error" };
         }
         return { response: data, error: null};
     } catch {
