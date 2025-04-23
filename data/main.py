@@ -1,15 +1,16 @@
 import argparse
-import json
 import os
 import requests
 from dotenv import load_dotenv
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-GOOGLE_OUTPUT_CSV_PATH = os.path.join(CURRENT_DIR, "data_google.csv")
-GOOGLE_OUTPUT_JSON_PATH = os.path.join(CURRENT_DIR, "data_google.json")
-OSM_OUTPUT_CSV_PATH = os.path.join(CURRENT_DIR, "data_osm.csv")
-OSM_OUTPUT_JSON_PATH = os.path.join(CURRENT_DIR, "data_osm.json")
+GOOGLE_OUTPUT_PATH = os.path.join(CURRENT_DIR, "data.csv")
+OSM_OUTPUT_PATH = os.path.join(CURRENT_DIR, "data_osm.csv")
+
+
+def generate_zip_codes() -> list[str]:
+    return [f"{i:05d}" for i in range (500, 100000)]
 
 
 def fetch_coords_from_google(
@@ -85,24 +86,6 @@ def write_to_csv(path: str, zip_code: str, lat: float, lon: float) -> None:
         f.write(header + row)
 
 
-def write_to_json(path: str, zip_code: str, lat: float, lon: float) -> None:
-    if not path.endswith(".json"):
-        exit(1)
-    if not os.path.exists(path) or os.stat(path).st_size == 0:
-        with open(path, 'w') as f:
-            f.write("[]")
-    with open(path, 'r') as f:
-        try:
-            data = json.load(f)
-            if not isinstance(data, list):
-                data = []
-        except json.JSONDecodeError:
-            data = {}
-    data.append({ "zip": zip_code, "lat": lat, "lon": lon })
-    with open(path, 'w') as f:
-        json.dump(data, f, indent=2)
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -115,20 +98,17 @@ def main():
     if args.source == "google":
         print("Fetching coordinates from Google Maps")
         fetch = fetch_coords_from_google
-        csv_path = GOOGLE_OUTPUT_CSV_PATH
-        json_path = GOOGLE_OUTPUT_JSON_PATH
+        path = GOOGLE_OUTPUT_PATH
     else:
         print("Fetching coordinates from Open Street Map")
         fetch = fetch_coords_from_osm
-        csv_path = OSM_OUTPUT_CSV_PATH
-        json_path = OSM_OUTPUT_JSON_PATH
-    zip_codes = [f"{i:05d}" for i in range (500, 100000)]
+        path = OSM_OUTPUT_PATH
+    zip_codes = generate_zip_codes()
     session = requests.session()
     for zip_code in zip_codes:
         lat, lon = fetch(zip_code, session)
         if lat is not None and lon is not None:
-            write_to_csv(csv_path, zip_code, lat, lon)
-            write_to_json(json_path, zip_code, lat, lon)
+            write_to_csv(path, zip_code, lat, lon)
     
 
 if __name__ == "__main__":
