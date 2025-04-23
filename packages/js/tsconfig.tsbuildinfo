@@ -1,0 +1,9 @@
+{
+    "root": [
+        "./src/coordstozip.ts",
+        "./src/haversine.ts",
+        "./src/index.ts",
+        "./src/ziptocoords.ts"
+    ],
+    "version": "5.8.3"
+}
