@@ -1,0 +1,21 @@
+package:
+  name: zipcoords
+  version: "1.0.0"
+
+source:
+  path: .
+
+build:
+  noarch: python
+  script: python -m pip install .
+
+requirements:
+  host:
+    - python >=3.10
+    - pip
+  run:
+    - python >=3.10
+
+about:
+  summary: "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes."
+  home: https://github.com/mikezangus/zipcoords
