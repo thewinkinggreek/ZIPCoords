@@ -33,3 +33,44 @@
     gap: 5rem;
     font-size: medium;
 }
+
+
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .navBarContainer {
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 2rem;
+    }
+
+    .linksContainer {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 5rem;
+        right: 0rem;
+        width: 7rem;
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+
+    .showMenu {
+        background-color: #0a0a0a;
+        display: flex;
+        z-index: 100;
+        border-radius: 0px 0px 10px 10px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
