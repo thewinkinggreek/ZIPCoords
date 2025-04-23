@@ -1,5 +1,6 @@
 import math
 
+
 def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     R = 6371e3
     to_rad = math.radians

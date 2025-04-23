@@ -11,7 +11,7 @@ def coords_to_zip(lat: float, lon: float) -> str | None:
     ):
         return None
 
-    path = files("zipcoords").joinpath("data_flat.json")
+    path = files("zipcoords.data").joinpath("data_flat.json")
     with open(path, 'r') as f:
         data: list[list[str, float, float]] = json.load(f)
 
