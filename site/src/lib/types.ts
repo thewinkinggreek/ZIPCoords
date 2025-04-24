@@ -7,7 +7,7 @@ export enum InputType {
 
 export type ZIPInput = {
     type: InputType.zip,
-    value: number
+    value: string
 }
 
 
@@ -27,7 +27,7 @@ export type ParsedInput = ZIPInput | CoordsInput | UnknownInput;
 
 
 export type Response = {
-    zip_code?: number;
+    zip_code?: string;
     lat?: number;
     lon?: number;
 };

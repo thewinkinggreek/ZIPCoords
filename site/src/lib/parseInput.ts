@@ -12,7 +12,7 @@ export default function parseInput(input: string): ParsedInput
     if (isZIPCode(input)) {
         return {
             type: InputType.zip,
-            value: parseInt(input, 10)
+            value: input
         };
     }
     const coords = parseCoords(input);
