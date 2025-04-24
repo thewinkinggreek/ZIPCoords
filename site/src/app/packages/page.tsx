@@ -25,15 +25,13 @@ export default function PackagesPage()
         <div className={styles.container}>
             <h1>Run ZIPCoords Locally via Python and JavaScript</h1>
             <div className={styles.section}>
-                <span className={styles.bold_underline}>Conda Install:</span>
+                <span className={styles.bold_underline}>Conda:</span>
                 <span className={styles.code}>conda install -c zangus zipcoords</span>
             </div>
             <div className={styles.section}>
-                <span className={styles.bold_underline}>npm Install:</span>
+                <span className={styles.bold_underline}>npm:</span>
                 <span className={styles.code}>npm install zipcoords</span>
             </div>
-
         </div>
-
-    )
+    );
 }
