@@ -52,6 +52,7 @@ export default function Header()
                     <Link href='/'>Home</Link>
                     <Link href="/packages">Packages</Link>
                     <Link href="/api-guide">API</Link>
+                    <Link href="https://github.com/mikezangus/zipcoords">GitHub</Link>
                 </div>
             </div>
         </div>
