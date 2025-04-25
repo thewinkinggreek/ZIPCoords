@@ -2,13 +2,13 @@ import json
 from importlib.resources import files
 
 
-def zip_to_coords(zip: str) -> dict[str, float | None]:
+def zip_to_coords(zip: str) -> tuple[float, float]:
     if (
         not isinstance(zip, str)
         or not zip.isdigit()
         or len(zip) != 5
     ):
-        return { "lat": None, "lon": None }
+        return None, None
 
     path = files("zipcoords.data").joinpath("data_dict.json")
     with open(path, 'r') as f:
@@ -16,6 +16,6 @@ def zip_to_coords(zip: str) -> dict[str, float | None]:
 
     coords = data.get(zip)
     if not coords:
-        return { "lat": None, "lon": None }
+        return None, None
 
-    return { "lat": coords[0], "lon": coords[1] }
+    return coords[0], coords[1]
