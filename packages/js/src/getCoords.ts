@@ -2,7 +2,7 @@ import rawData from "./data/data_dict.json" with { type: "json" };
 const data = rawData as unknown as Record<string, [number, number]>;
 
 
-export default function zipToCoords(
+export default function getCoords(
     zip: string
 ): { lat: number | null, lon: number | null}
 {

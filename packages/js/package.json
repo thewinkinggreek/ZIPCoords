@@ -1,6 +1,6 @@
 {
     "name": "zipcoords",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "type": "module",
     "description": "Convert ZIP Codes to coordinates. Convert coordinates to ZIP Codes.",
     "main": "dist/index.js",

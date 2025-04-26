@@ -1,5 +1,5 @@
-from .coords_to_zip import coords_to_zip
-from .zip_to_coords import zip_to_coords
+from .get_zip import get_zip
+from .get_coords import get_coords
 
 
-__all__ = ["zip_to_coords", "coords_to_zip"]
+__all__ = ["get_coords", "get_zip"]

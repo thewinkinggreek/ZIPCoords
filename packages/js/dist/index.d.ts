@@ -1,2 +1,2 @@
-export { default as zipToCoords } from "./zipToCoords.js";
-export { default as coordsToZIP } from "./coordsToZIP.js";
+export { default as getCoords } from "./getCoords.js";
+export { default as getZIP } from "./getZIP.js";

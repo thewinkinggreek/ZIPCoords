@@ -1,6 +1,6 @@
 import rawData from "./data/data_dict.json" with { type: "json" };
 const data = rawData;
-export default function zipToCoords(zip) {
+export default function getCoords(zip) {
     const regex = /^\d{5}$/;
     if (!regex.test(zip)) {
         return { lat: null, lon: null };
